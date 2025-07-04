@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.2.1
+
+[compare changes](https://github.com/furatamasensei/nuxt-kaspa/compare/v1.2.0...v1.2.1)
+
+### 🏡 Chore
+
+- Add cover ([11935e5](https://github.com/furatamasensei/nuxt-kaspa/commit/11935e5))
+
+### ❤️ Contributors
+
+- Donny Pratama <pratamatama1024@gmail.com>
+
 ## v1.2.0
 
 [compare changes](https://github.com/furatamasensei/nuxt-kaspa/compare/v1.1.2...v1.2.0)
