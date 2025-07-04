@@ -1,6 +1,6 @@
 {
   "name": "nuxt-kaspa",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A Nuxt plugin for interacting with Kaspa blockchain",
   "repository": "https://github.com/furatamasensei/nuxt-kaspa",
   "license": "MIT",
@@ -27,14 +27,14 @@
     "dev": "npm run dev:prepare && nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
-    "lint": "eslint .",
+    "release": "npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
   },
   "dependencies": {
     "@nuxt/kit": "^3.17.6",
+    "defu": "^6.1.4",
     "pathe": "^2.0.3",
     "websocket": "^1.0.35"
   },
