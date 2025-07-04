@@ -48,6 +48,19 @@ const items: NavigationMenuItem[][] = [
         },
       ],
     },
+    {
+      label: 'Common API',
+      type: 'label',
+      icon: 'i-lucide-chevrons-left-right-ellipsis',
+      active: true,
+      defaultOpen: true,
+      children: [
+        {
+          label: 'useMnemonic',
+          to: '/common/mnemonic',
+        },
+      ],
+    },
   ],
 ]
 </script>
