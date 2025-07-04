@@ -19,8 +19,11 @@ const DEFAULTS: ModuleOptions = {
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: "@nuxtjs/kaspa",
+    name: "@kaspa/nuxt",
     configKey: "kaspa",
+    compatibility: {
+      nuxt: ">=3.0.0",
+    },
   },
   defaults: DEFAULTS,
   setup(options, nuxt) {

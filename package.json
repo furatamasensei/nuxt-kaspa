@@ -1,8 +1,8 @@
 {
-  "name": "my-module",
+  "name": "nuxt-kaspa",
   "version": "1.0.0",
-  "description": "My new Nuxt module",
-  "repository": "your-org/my-module",
+  "description": "A Nuxt plugin for interacting with Kaspa blockchain",
+  "repository": "your-org/nuxt-kaspa",
   "license": "MIT",
   "type": "module",
   "exports": {

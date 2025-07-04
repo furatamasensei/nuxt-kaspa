@@ -1,42 +1,33 @@
-<!--
-Get your module up and running quickly.
-
-Find and replace all on all files (CMD+SHIFT+F):
-- Name: My Module
-- Package name: my-module
-- Description: My new Nuxt module
--->
-
-# My Module
+# Nuxt Kaspa
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
 [![License][license-src]][license-href]
 [![Nuxt][nuxt-src]][nuxt-href]
 
-My new Nuxt module for doing amazing things.
+A Nuxt plugin for interacting with Kaspa blockchain
 
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)
-<!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/my-module?file=playground%2Fapp.vue) -->
-<!-- - [📖 &nbsp;Documentation](https://example.com) -->
+  - [🏀 Online playground](https://stackblitz.com/github/furatamasensei/nuxt-kaspa?file=playground%2Fapp.vue)
+  - [📖 &nbsp;Documentation](https://kaspa.nuxtjs.org)
 
 ## Features
 
 <!-- Highlight some of the features your module provide here -->
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
+
+- ⚡️ &nbsp;Quick & Easy integration with [Kaspa](https://kaspa.org): the fastest and most scalable Proof-of-Work blockchain
+- 🔗 &nbsp;Easy access to common APIs through composables
+- ⚙️ &nbsp;Configurable RPC setup through Nuxt config
 
 ## Quick Setup
 
 Install the module to your Nuxt application with one command:
 
 ```bash
-npx nuxi module add my-module
+npx nuxi module add @kaspa/nuxt
 ```
 
-That's it! You can now use My Module in your Nuxt app ✨
-
+That's it! You can now use Kaspa in your Nuxt app ✨
 
 ## Contribution
 
@@ -59,26 +50,19 @@ That's it! You can now use My Module in your Nuxt app ✨
   # Run ESLint
   npm run lint
   
-  # Run Vitest
-  npm run test
-  npm run test:watch
-  
   # Release new version
   npm run release
   ```
 
 </details>
 
-
 <!-- Badges -->
-[npm-version-src]: https://img.shields.io/npm/v/my-module/latest.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-version-href]: https://npmjs.com/package/my-module
 
-[npm-downloads-src]: https://img.shields.io/npm/dm/my-module.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-downloads-href]: https://npm.chart.dev/my-module
-
-[license-src]: https://img.shields.io/npm/l/my-module.svg?style=flat&colorA=020420&colorB=00DC82
-[license-href]: https://npmjs.com/package/my-module
-
+[npm-version-src]: https://img.shields.io/npm/v/nuxt-kaspa/latest.svg?style=flat&colorA=020420&colorB=00DC82
+[npm-version-href]: https://npmjs.com/package/nuxt-kaspa
+[npm-downloads-src]: https://img.shields.io/npm/dm/nuxt-kaspa.svg?style=flat&colorA=020420&colorB=00DC82
+[npm-downloads-href]: https://npm.chart.dev/nuxt-kaspa
+[license-src]: https://img.shields.io/npm/l/nuxt-kaspa.svg?style=flat&colorA=020420&colorB=00DC82
+[license-href]: https://npmjs.com/package/nuxt-kaspa
 [nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt.js
 [nuxt-href]: https://nuxt.com
