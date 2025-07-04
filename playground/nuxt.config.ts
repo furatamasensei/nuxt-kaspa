@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     'nuxt-shiki',
     '@vueuse/nuxt',
+    '@nuxt/image',
   ],
   css: ['~/assets/css/main.css'],
 

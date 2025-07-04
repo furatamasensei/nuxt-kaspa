@@ -8,6 +8,7 @@
     "generate": "nuxi generate"
   },
   "dependencies": {
+    "@nuxt/image": "1.10.0",
     "@nuxt/ui": "^3.2.0",
     "@vueuse/nuxt": "13.5.0",
     "nuxt": "^3.17.6",

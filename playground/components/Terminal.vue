@@ -48,7 +48,7 @@ const togglePause = () => {
         />
       </div>
     </template>
-    <div class="bg-neutral-950 min-h-[435px] max-w-full text-xs p-4">
+    <div class="min-h-[435px] max-w-full text-xs p-4">
       <DynamicScroller
         ref="scrollerRef"
         :items="model"
@@ -62,7 +62,7 @@ const togglePause = () => {
             :active="active"
             :data-index="index"
           >
-            <div class="whitespace-nowrap font-mono text-primary-600">
+            <div class="whitespace-nowrap font-mono text-primary-500">
               {{ render(item) }}
             </div>
           </DynamicScrollerItem>

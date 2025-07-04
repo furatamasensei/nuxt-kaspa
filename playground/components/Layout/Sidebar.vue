@@ -53,13 +53,13 @@ const items: NavigationMenuItem[][] = [
 </script>
 
 <template>
-  <div
-    class="border-l border-neutral-200 dark:border-neutral-800 h-dvh overflow-y-auto"
+  <UCard
+    variant="subtle"
+    :ui="{ root: 'h-full rounded-none', body: 'h-full overflow-y-auto' }"
   >
-    <div class="font-bold text-xl p-4">Nuxt Kaspa Demo</div>
-    <USeparator />
-    <div class="p-4">
-      <UNavigationMenu orientation="vertical" :items="items" />
-    </div>
-  </div>
+    <template #header>
+      <div class="font-bold text-xl">Nuxt Kaspa Demo</div>
+    </template>
+    <UNavigationMenu orientation="vertical" :items="items" />
+  </UCard>
 </template>
