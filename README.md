@@ -5,6 +5,8 @@
 [![License][license-src]][license-href]
 [![Nuxt][nuxt-src]][nuxt-href]
 
+## IMPORTANT: This module is in early development stage and is not ready for production use.
+
 A Nuxt plugin for interacting with Kaspa blockchain
 
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)
