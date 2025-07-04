@@ -1,6 +1,6 @@
 {
   "name": "nuxt-kaspa",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "A Nuxt plugin for interacting with Kaspa blockchain",
   "repository": "https://github.com/furatamasensei/nuxt-kaspa",
   "license": "MIT",

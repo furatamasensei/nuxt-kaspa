@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v1.2.0
+
+[compare changes](https://github.com/furatamasensei/nuxt-kaspa/compare/v1.1.2...v1.2.0)
+
+### 🚀 Enhancements
+
+- Add note ([f3725c6](https://github.com/furatamasensei/nuxt-kaspa/commit/f3725c6))
+
+### 🏡 Chore
+
+- **release:** V1.1.2 ([32df8d7](https://github.com/furatamasensei/nuxt-kaspa/commit/32df8d7))
+
+### ❤️ Contributors
+
+- Donny Pratama <pratamatama1024@gmail.com>
+
 ## v1.1.2
 
 [compare changes](https://github.com/furatamasensei/nuxt-kaspa/compare/v1.1.1...v1.1.2)
