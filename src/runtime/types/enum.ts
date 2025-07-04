@@ -10,12 +10,6 @@ export enum OP {
   Chown = 'chown',
 }
 
-export enum AddressVersion {
-  PubKey = 0,
-  PubKeyECDSA = 1,
-  ScriptHash = 8,
-}
-
 export enum WalletType {
   HD = 0,
   PrivateKey = 1,

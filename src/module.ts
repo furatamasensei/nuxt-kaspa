@@ -41,5 +41,6 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     addImportsDir(resolve(runtimeDir, 'composables'))
+    addImportsDir(resolve(runtimeDir, 'types'))
   },
 })

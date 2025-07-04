@@ -4,7 +4,7 @@ import type {
   IUtxoEntry,
   ScriptPublicKey,
 } from '../kaspa/kaspa'
-import type { AddressVersion } from '../types/enum'
+import type { AddressVersion } from '../types'
 import { OP } from '../types/enum'
 import { BASE_KAS_TO_P2SH_ADDRESS, U64_MAX_VALUE } from './constants'
 
