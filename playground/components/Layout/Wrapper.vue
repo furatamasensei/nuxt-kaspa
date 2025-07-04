@@ -5,7 +5,7 @@
         <LayoutSidebar />
       </div>
       <div
-        class="col-span-8 border-x border-neutral-200 dark:border-neutral-800"
+        class="col-span-8 border-x border-neutral-200 dark:border-neutral-800 p-6 h-full overflow-y-auto"
       >
         <slot />
       </div>
