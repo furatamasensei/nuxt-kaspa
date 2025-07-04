@@ -5,11 +5,11 @@ import {
   signMessage as wasmSignMessage,
   verifyMessage as wasmVerifyMessage,
   type HexString,
-} from "../kaspa/kaspa";
-import { WalletType } from "../types/enum";
-import { useValidator } from "./useValidator.client";
+} from '../kaspa/kaspa'
+import { WalletType } from '../types/enum'
+import { useValidator } from './useValidator.client'
 
-const DERIVE_PATH = `m/44'/111111'/0'/0/`; // Default derivation path for Kaspa wallets
+const DERIVE_PATH = `m/44'/111111'/0'/0/` // Default derivation path for Kaspa wallets
 
 export const useWallet = () => {
   /**
@@ -17,19 +17,19 @@ export const useWallet = () => {
    * @param {string} mnemonic - The mnemonic phrase.
    * @param {string} [password=""] - An optional password for additional security.
    */
-  const fromMnemonic = (mnemonic: string, password: string = "") => {
-    const seed = new Mnemonic(mnemonic).toSeed(password);
-    const xprv = new XPrv(seed);
-    const index = 0;
-    const privateKey = xprv.derivePath(`${DERIVE_PATH}${index}`).toPrivateKey();
+  const fromMnemonic = (mnemonic: string, password: string = '') => {
+    const seed = new Mnemonic(mnemonic).toSeed(password)
+    const xprv = new XPrv(seed)
+    const index = 0
+    const privateKey = xprv.derivePath(`${DERIVE_PATH}${index}`).toPrivateKey()
 
     return {
       privateKey,
       walletType: WalletType.HD,
       xprv,
       index,
-    };
-  };
+    }
+  }
 
   /**
    * Creates a wallet instance from an existing private key.
@@ -39,8 +39,8 @@ export const useWallet = () => {
     return {
       privateKey: new PrivateKey(privateKey),
       walletType: WalletType.PrivateKey,
-    };
-  };
+    }
+  }
 
   /**
    * Creates a new wallet derived from the current HD wallet at a specified index.
@@ -50,26 +50,26 @@ export const useWallet = () => {
   const create = (mnemonic: string, walletType: WalletType, index?: number) => {
     if (walletType !== WalletType.HD) {
       throw new Error(
-        "A wallet created from a private key cannot derive new wallets."
-      );
+        'A wallet created from a private key cannot derive new wallets.',
+      )
     }
 
     // If index is not provided, increment the existing index.
-    const newIndex = index ?? index! + 1;
+    const newIndex = index ?? index! + 1
 
-    const seed = new Mnemonic(mnemonic).toSeed();
-    const xprv = new XPrv(seed);
+    const seed = new Mnemonic(mnemonic).toSeed()
+    const xprv = new XPrv(seed)
     const privateKey = xprv
       .derivePath(`${DERIVE_PATH}${newIndex}`)
-      .toPrivateKey();
+      .toPrivateKey()
 
     return {
       privateKey,
       walletType: WalletType.HD,
       xprv,
       index: newIndex,
-    };
-  };
+    }
+  }
 
   /**
    * Signs a given message using the private key.
@@ -79,8 +79,8 @@ export const useWallet = () => {
    * @returns The signature as a hexadecimal string.
    */
   const signMessage = (message: string, privateKey: PrivateKey): HexString => {
-    return wasmSignMessage({ message, privateKey });
-  };
+    return wasmSignMessage({ message, privateKey })
+  }
 
   /**
    * Verifies a signed message using the public key.
@@ -93,14 +93,14 @@ export const useWallet = () => {
   const verifyMessage = (
     message: string,
     signature: string,
-    privateKey: PrivateKey
+    privateKey: PrivateKey,
   ): boolean => {
     return wasmVerifyMessage({
       message,
       signature,
       publicKey: privateKey.toPublicKey(),
-    });
-  };
+    })
+  }
 
   /**
    * Validates an address.
@@ -110,8 +110,8 @@ export const useWallet = () => {
    * @returns A boolean indicating whether the address is valid.
    */
   const validate = (address: string): boolean => {
-    return useValidator().validateAddress(address);
-  };
+    return useValidator().validateAddress(address)
+  }
 
   return {
     fromMnemonic,
@@ -120,5 +120,5 @@ export const useWallet = () => {
     signMessage,
     verifyMessage,
     validate,
-  };
-};
+  }
+}

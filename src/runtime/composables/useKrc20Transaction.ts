@@ -1,5 +1,5 @@
-import { useRuntimeConfig } from "#app";
-import { useKaspaRpc } from "#imports";
+import { useRuntimeConfig } from '#app'
+import { useKaspaRpc } from '#imports'
 import {
   Address,
   addressFromScriptPublicKey,
@@ -7,43 +7,43 @@ import {
   ScriptBuilder,
   SighashType,
   type HexString,
-} from "../kaspa/kaspa";
-import type { Krc20Data } from "../types";
-import { OP } from "../types/enum";
+} from '../kaspa/kaspa'
+import type { Krc20Data } from '../types'
+import { OP } from '../types/enum'
 import {
   BASE_P2SH_TO_KASPA_ADDRESS,
   createOutputs,
   DEFAULT_FEE,
   getFeeByOp,
   getRevealEntries,
-} from "../utils";
-import { useScriptBuilder } from "./useScriptBuilder";
-import { useTransaction } from "./useTransaction.client";
-import { useValidator } from "./useValidator.client";
+} from '../utils'
+import { useScriptBuilder } from './useScriptBuilder'
+import { useTransaction } from './useTransaction.client'
+import { useValidator } from './useValidator.client'
 
 export const useKrc20Transaction = () => {
-  const { validate } = useValidator();
+  const { validate } = useValidator()
 
   const executeCommit = async (
     privateKey: string,
     data: Krc20Data,
-    fee: bigint = 0n
+    fee: bigint = 0n,
   ) => {
-    validate(data);
+    validate(data)
 
     const fromAddress = new PrivateKey(privateKey)
       .toPublicKey()
       .toAddress(useRuntimeConfig().public.kaspa.network)
-      .toString();
+      .toString()
 
-    const script = createScript(privateKey, data);
-    const p2shAddress = createP2SHAddress(script);
-    let { p2shFee, priorityFee } = getFeeInfo(data.op);
-    const outputs = createOutputs(p2shAddress.toString(), p2shFee);
+    const script = createScript(privateKey, data)
+    const p2shAddress = createP2SHAddress(script)
+    let { p2shFee, priorityFee } = getFeeInfo(data.op)
+    const outputs = createOutputs(p2shAddress.toString(), p2shFee)
 
-    const { entries } = await useKaspaRpc().getUtxosByAddresses([fromAddress]);
+    const { entries } = await useKaspaRpc().getUtxosByAddresses([fromAddress])
 
-    const { createSignAndSubmitTransactions } = useTransaction();
+    const { createSignAndSubmitTransactions } = useTransaction()
     return await createSignAndSubmitTransactions(
       {
         changeAddress: fromAddress,
@@ -51,32 +51,32 @@ export const useKrc20Transaction = () => {
         priorityFee: fee,
         entries,
       },
-      privateKey
-    );
-  };
+      privateKey,
+    )
+  }
 
   const executeReveal = async (
     privateKey: string,
     data: Krc20Data,
-    commitTxid: string
+    commitTxid: string,
   ) => {
-    validate(data);
+    validate(data)
 
-    const script = createScript(privateKey, data);
-    const p2shAddress = createP2SHAddress(script);
+    const script = createScript(privateKey, data)
+    const p2shAddress = createP2SHAddress(script)
     const fromAddress = new PrivateKey(privateKey)
       .toPublicKey()
       .toAddress(useRuntimeConfig().public.kaspa.network)
-      .toString();
+      .toString()
 
-    const rpc = useKaspaRpc();
-    let { priorityFee } = getFeeInfo(data.op);
-    const { entries } = await rpc.getUtxosByAddresses([p2shAddress]);
+    const rpc = useKaspaRpc()
+    let { priorityFee } = getFeeInfo(data.op)
+    const { entries } = await rpc.getUtxosByAddresses([p2shAddress])
     const entry = entries.find((entry) => {
-      return entry.entry.outpoint.transactionId === commitTxid;
-    });
-    if (entry == undefined) throw Error("commit txid not find");
-    priorityFee = priorityFee === 0n ? 100000n : priorityFee;
+      return entry.entry.outpoint.transactionId === commitTxid
+    })
+    if (entry == undefined) throw Error('commit txid not find')
+    priorityFee = priorityFee === 0n ? 100000n : priorityFee
 
     return await useTransaction()
       .createTransactions({
@@ -90,17 +90,17 @@ export const useKrc20Transaction = () => {
           transaction.transaction.inputs.forEach((_, index) => {
             const signature = transaction.createInputSignature(
               index,
-              new PrivateKey(privateKey)
-            );
+              new PrivateKey(privateKey),
+            )
             transaction.fillInput(
               index,
-              script.encodePayToScriptHashSignatureScript(signature)
-            );
-          });
-          transaction.submit(rpc);
-        });
-      });
-  };
+              script.encodePayToScriptHashSignatureScript(signature),
+            )
+          })
+          transaction.submit(rpc)
+        })
+      })
+  }
 
   /**
    * Executes a KRC20 operation.
@@ -114,23 +114,23 @@ export const useKrc20Transaction = () => {
     privateKey: string,
     data: Krc20Data,
     fee: bigint = 0n,
-    payload?: HexString | Uint8Array
+    payload?: HexString | Uint8Array,
   ) => {
-    validate(data);
+    validate(data)
 
-    const script = createScript(privateKey, data);
-    const p2shAddress = createP2SHAddress(script);
+    const script = createScript(privateKey, data)
+    const p2shAddress = createP2SHAddress(script)
     const fromAddress = new PrivateKey(privateKey)
       .toPublicKey()
       .toAddress(useRuntimeConfig().public.kaspa.network)
-      .toString();
+      .toString()
 
-    let { p2shFee, priorityFee } = getFeeInfo(data.op);
-    const outputs = createOutputs(p2shAddress.toString(), p2shFee);
+    let { p2shFee, priorityFee } = getFeeInfo(data.op)
+    const outputs = createOutputs(p2shAddress.toString(), p2shFee)
 
-    const { entries } = await useKaspaRpc().getUtxosByAddresses([fromAddress]);
+    const { entries } = await useKaspaRpc().getUtxosByAddresses([fromAddress])
     const { createSignAndSubmitTransactions, createTransactions } =
-      useTransaction();
+      useTransaction()
 
     // Commit phase
     const commitTxid = await createSignAndSubmitTransactions(
@@ -140,14 +140,14 @@ export const useKrc20Transaction = () => {
         priorityFee: fee,
         entries,
       },
-      privateKey
-    );
+      privateKey,
+    )
 
     // Reveal phase
     const revealEntries = entries.filter(
-      (entry) => entry.entry.outpoint.transactionId === commitTxid
-    );
-    priorityFee = priorityFee === 0n ? 100000n : priorityFee;
+      (entry) => entry.entry.outpoint.transactionId === commitTxid,
+    )
+    priorityFee = priorityFee === 0n ? 100000n : priorityFee
 
     return await createTransactions({
       changeAddress: fromAddress,
@@ -160,17 +160,17 @@ export const useKrc20Transaction = () => {
         transaction.transaction.inputs.forEach((_, index) => {
           const signature = transaction.createInputSignature(
             index,
-            new PrivateKey(privateKey)
-          );
+            new PrivateKey(privateKey),
+          )
           transaction.fillInput(
             index,
-            script.encodePayToScriptHashSignatureScript(signature)
-          );
-        });
-        transaction.submit(useKaspaRpc());
-      });
-    });
-  };
+            script.encodePayToScriptHashSignatureScript(signature),
+          )
+        })
+        transaction.submit(useKaspaRpc())
+      })
+    })
+  }
 
   /**
    * Mints new KRC20 tokens.
@@ -184,12 +184,12 @@ export const useKrc20Transaction = () => {
     privateKey: string,
     data: Krc20Data,
     fee: bigint = 0n,
-    payload?: HexString | Uint8Array
+    payload?: HexString | Uint8Array,
   ) => {
     if (data.op !== OP.Mint)
-      throw new Error("Invalid input: 'op' must be 'mint'");
-    return await executeOperation(privateKey, data, fee, payload);
-  };
+      throw new Error("Invalid input: 'op' must be 'mint'")
+    return await executeOperation(privateKey, data, fee, payload)
+  }
 
   /**
    * Deploys a new KRC20 token contract.
@@ -203,12 +203,12 @@ export const useKrc20Transaction = () => {
     privateKey: string,
     data: Krc20Data,
     fee: bigint = 0n,
-    payload?: HexString | Uint8Array
+    payload?: HexString | Uint8Array,
   ) => {
     if (data.op !== OP.Deploy)
-      throw new Error("Invalid input: 'op' must be 'deploy'");
-    return await executeOperation(privateKey, data, fee, payload);
-  };
+      throw new Error("Invalid input: 'op' must be 'deploy'")
+    return await executeOperation(privateKey, data, fee, payload)
+  }
 
   /**
    * Transfers KRC20 tokens to another address.
@@ -222,12 +222,12 @@ export const useKrc20Transaction = () => {
     privateKey: string,
     data: Krc20Data,
     fee: bigint = 0n,
-    payload?: HexString | Uint8Array
+    payload?: HexString | Uint8Array,
   ) => {
     if (!data.to || !data.amt)
-      throw new Error("Invalid input: 'to' and 'amt' must be provided");
-    return await executeOperation(privateKey, data, fee, payload);
-  };
+      throw new Error("Invalid input: 'to' and 'amt' must be provided")
+    return await executeOperation(privateKey, data, fee, payload)
+  }
 
   /**
    * Lists KRC20 token details.
@@ -239,25 +239,25 @@ export const useKrc20Transaction = () => {
   const list = async (
     privateKey: any, // Replace 'any' with the correct type if available
     data: Krc20Data,
-    fee: bigint = 0n
+    fee: bigint = 0n,
   ) => {
     if (data.op !== OP.List)
-      throw new Error("Invalid input: 'op' must be 'list'");
-    validate(data);
+      throw new Error("Invalid input: 'op' must be 'list'")
+    validate(data)
 
-    const script = createScript(privateKey, data);
-    const p2shAddress = createP2SHAddress(script);
+    const script = createScript(privateKey, data)
+    const p2shAddress = createP2SHAddress(script)
     const fromAddress = new PrivateKey(privateKey)
       .toPublicKey()
       .toAddress(useRuntimeConfig().public.kaspa.network)
-      .toString();
+      .toString()
 
-    let { p2shFee, priorityFee } = getFeeInfo(data.op);
-    const outputs = createOutputs(p2shAddress.toString(), p2shFee);
+    let { p2shFee, priorityFee } = getFeeInfo(data.op)
+    const outputs = createOutputs(p2shAddress.toString(), p2shFee)
 
-    const { entries } = await useKaspaRpc().getUtxosByAddresses([fromAddress]);
+    const { entries } = await useKaspaRpc().getUtxosByAddresses([fromAddress])
     const { createSignAndSubmitTransactions, createTransactions } =
-      useTransaction();
+      useTransaction()
 
     // Commit phase
     const commitTxid = await createSignAndSubmitTransactions(
@@ -267,14 +267,14 @@ export const useKrc20Transaction = () => {
         priorityFee: fee,
         entries,
       },
-      privateKey
-    );
+      privateKey,
+    )
 
     // Reveal phase
     const revealEntries = entries.filter(
-      (entry) => entry.entry.outpoint.transactionId === commitTxid
-    );
-    priorityFee = priorityFee === 0n ? 100000n : priorityFee;
+      (entry) => entry.entry.outpoint.transactionId === commitTxid,
+    )
+    priorityFee = priorityFee === 0n ? 100000n : priorityFee
 
     return await createTransactions({
       changeAddress: fromAddress,
@@ -286,17 +286,17 @@ export const useKrc20Transaction = () => {
         transaction.transaction.inputs.forEach((_, index) => {
           const signature = transaction.createInputSignature(
             index,
-            new PrivateKey(privateKey)
-          );
+            new PrivateKey(privateKey),
+          )
           transaction.fillInput(
             index,
-            script.encodePayToScriptHashSignatureScript(signature)
-          );
-        });
-        transaction.submit(useKaspaRpc());
-      });
-    });
-  };
+            script.encodePayToScriptHashSignatureScript(signature),
+          )
+        })
+        transaction.submit(useKaspaRpc())
+      })
+    })
+  }
 
   /**
    * Signs and sends a KRC20 'send' transaction.
@@ -312,65 +312,65 @@ export const useKrc20Transaction = () => {
     data: Krc20Data,
     hash: string,
     amount: bigint,
-    payload: string = ""
+    payload: string = '',
   ) => {
     if (data.op !== OP.Send) {
-      throw new Error("Invalid input: 'op' must be 'send'");
+      throw new Error("Invalid input: 'op' must be 'send'")
     }
 
-    const script = createScript(privateKey, data);
-    const scriptPublicKey = script.createPayToScriptHashScript();
+    const script = createScript(privateKey, data)
+    const scriptPublicKey = script.createPayToScriptHashScript()
     const p2shAddress = addressFromScriptPublicKey(
       scriptPublicKey,
-      useRuntimeConfig().public.kaspa.network
-    )!;
+      useRuntimeConfig().public.kaspa.network,
+    )!
 
     const fromAddress = new PrivateKey(privateKey)
       .toPublicKey()
       .toAddress(useRuntimeConfig().public.kaspa.network)
-      .toString();
+      .toString()
 
     const { entries } = await useKaspaRpc().getUtxosByAddresses([
       p2shAddress!.toString(),
-    ]);
+    ])
 
     const entry = entries.find(
-      (entry) => entry.entry.outpoint.transactionId === hash
-    );
-    if (entry == undefined) throw Error("commit txid not find");
+      (entry) => entry.entry.outpoint.transactionId === hash,
+    )
+    if (entry == undefined) throw Error('commit txid not find')
 
-    const output = createOutputs(fromAddress, amount);
+    const output = createOutputs(fromAddress, amount)
     const revealEntries = getRevealEntries(
       p2shAddress,
       hash,
       scriptPublicKey,
-      entry.amount
-    );
+      entry.amount,
+    )
     const txWithEntries = useTransaction().createTransactionWithEntries(
       revealEntries,
       output,
       0n,
       payload,
-      1
-    );
+      1,
+    )
 
     return useTransaction()
       .sign(
         txWithEntries,
         new PrivateKey(privateKey),
         script,
-        SighashType.SingleAnyOneCanPay
+        SighashType.SingleAnyOneCanPay,
       )!
-      .toJSON();
-  };
+      .toJSON()
+  }
 
   const getFeeInfo = (op: OP) => {
-    const priorityFee = getFeeByOp(op);
+    const priorityFee = getFeeByOp(op)
     const p2shFee =
       (priorityFee === 0n ? DEFAULT_FEE : priorityFee) +
-      BASE_P2SH_TO_KASPA_ADDRESS;
-    return { p2shFee, priorityFee };
-  };
+      BASE_P2SH_TO_KASPA_ADDRESS
+    return { p2shFee, priorityFee }
+  }
 
   /**
    * Creates a KRC20 script.
@@ -381,60 +381,60 @@ export const useKrc20Transaction = () => {
   const createScript = (privateKey: string, data: Krc20Data): ScriptBuilder => {
     return useScriptBuilder().createKrc20Script(
       new PrivateKey(privateKey).toPublicKey().toString(),
-      data
-    );
-  };
+      data,
+    )
+  }
 
   const createP2SHAddress = (script: ScriptBuilder): Address => {
     return addressFromScriptPublicKey(
       script.createPayToScriptHashScript(),
-      useRuntimeConfig().public.kaspa.network
-    )!;
-  };
+      useRuntimeConfig().public.kaspa.network,
+    )!
+  }
 
   const issue = async (
     privateKey: string,
     data: Krc20Data,
     fee: bigint = 0n,
-    payload?: HexString | Uint8Array
+    payload?: HexString | Uint8Array,
   ) => {
     if (data.op !== OP.Issue)
-      throw new Error("Invalid input: 'op' must be 'issue'");
-    return await executeOperation(privateKey, data, fee, payload);
-  };
+      throw new Error("Invalid input: 'op' must be 'issue'")
+    return await executeOperation(privateKey, data, fee, payload)
+  }
 
   const burn = async (
     privateKey: string,
     data: Krc20Data,
     fee: bigint = 0n,
-    payload?: HexString | Uint8Array
+    payload?: HexString | Uint8Array,
   ) => {
     if (data.op !== OP.Burn)
-      throw new Error("Invalid input: 'op' must be 'burn'");
-    return await executeOperation(privateKey, data, fee, payload);
-  };
+      throw new Error("Invalid input: 'op' must be 'burn'")
+    return await executeOperation(privateKey, data, fee, payload)
+  }
 
   const blacklist = async (
     privateKey: string,
     data: Krc20Data,
     fee: bigint = 0n,
-    payload?: HexString | Uint8Array
+    payload?: HexString | Uint8Array,
   ) => {
     if (data.op !== OP.Blacklist)
-      throw new Error("Invalid input: 'op' must be 'blacklist'");
-    return await executeOperation(privateKey, data, fee, payload);
-  };
+      throw new Error("Invalid input: 'op' must be 'blacklist'")
+    return await executeOperation(privateKey, data, fee, payload)
+  }
 
   const chown = async (
     privateKey: string,
     data: Krc20Data,
     fee: bigint = 0n,
-    payload?: HexString | Uint8Array
+    payload?: HexString | Uint8Array,
   ) => {
     if (data.op !== OP.Chown)
-      throw new Error("Invalid input: 'op' must be 'chown'");
-    return await executeOperation(privateKey, data, fee, payload);
-  };
+      throw new Error("Invalid input: 'op' must be 'chown'")
+    return await executeOperation(privateKey, data, fee, payload)
+  }
 
   return {
     executeCommit,
@@ -445,5 +445,5 @@ export const useKrc20Transaction = () => {
     transfer,
     list,
     sendTransaction,
-  };
-};
+  }
+}

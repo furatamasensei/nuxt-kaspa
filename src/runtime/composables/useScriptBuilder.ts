@@ -4,9 +4,9 @@ import {
   Opcodes,
   PublicKey,
   ScriptBuilder,
-} from "../kaspa/kaspa";
-import type { Krc20Data } from "../types";
-import { KASPLEX } from "../utils";
+} from '../kaspa/kaspa'
+import type { Krc20Data } from '../types'
+import { KASPLEX } from '../utils'
 
 export const useScriptBuilder = () => {
   /**
@@ -17,7 +17,7 @@ export const useScriptBuilder = () => {
    */
   const createKrc20Script = (
     publicKey: string,
-    data: Krc20Data
+    data: Krc20Data,
   ): ScriptBuilder => {
     return new ScriptBuilder()
       .addData(publicKey)
@@ -27,8 +27,8 @@ export const useScriptBuilder = () => {
       .addData(Buffer.from(KASPLEX))
       .addI64(0n)
       .addData(Buffer.from(JSON.stringify(data)))
-      .addOp(Opcodes.OpEndIf);
-  };
+      .addOp(Opcodes.OpEndIf)
+  }
 
   /**
    * Generates a script with a lock time.
@@ -41,11 +41,11 @@ export const useScriptBuilder = () => {
   const createLockTimeScript = (
     publicKey: string,
     data: Krc20Data,
-    lockTime: bigint
+    lockTime: bigint,
   ): ScriptBuilder => {
-    const currentTime = Math.floor(Date.now() / 1000);
+    const currentTime = Math.floor(Date.now() / 1000)
     if (lockTime <= currentTime) {
-      throw new Error(`Lock time is in the past: ${lockTime}`);
+      throw new Error(`Lock time is in the past: ${lockTime}`)
     }
 
     return new ScriptBuilder()
@@ -58,8 +58,8 @@ export const useScriptBuilder = () => {
       .addData(Buffer.from(KASPLEX))
       .addI64(0n)
       .addData(Buffer.from(JSON.stringify(data, null, 0)))
-      .addOp(Opcodes.OpEndIf);
-  };
+      .addOp(Opcodes.OpEndIf)
+  }
 
   /**
    * Generates a multi-signature transaction script.
@@ -71,20 +71,20 @@ export const useScriptBuilder = () => {
   const createMultisignTxScript = (
     publicKeys: string[],
     require: number,
-    ecdsa?: boolean
+    ecdsa?: boolean,
   ): ScriptBuilder => {
-    const script = new ScriptBuilder().addOp(Opcodes.OpReserved + require);
+    const script = new ScriptBuilder().addOp(Opcodes.OpReserved + require)
 
     publicKeys.forEach((pk) => {
       script.addData(
-        ecdsa ? pk : new PublicKey(pk).toXOnlyPublicKey().toString()
-      );
-    });
+        ecdsa ? pk : new PublicKey(pk).toXOnlyPublicKey().toString(),
+      )
+    })
 
     return script
       .addOp(Opcodes.OpReserved + publicKeys.length)
-      .addOp(ecdsa ? Opcodes.OpCheckMultiSigECDSA : Opcodes.OpCheckMultiSig);
-  };
+      .addOp(ecdsa ? Opcodes.OpCheckMultiSigECDSA : Opcodes.OpCheckMultiSig)
+  }
 
   /**
    * Generates a multi-signature transaction script with KRC-20 data.
@@ -98,15 +98,15 @@ export const useScriptBuilder = () => {
     publicKeys: string[],
     data: Krc20Data,
     require: number,
-    ecdsa?: boolean
+    ecdsa?: boolean,
   ) => {
-    const script = new ScriptBuilder().addOp(Opcodes.OpReserved + require);
+    const script = new ScriptBuilder().addOp(Opcodes.OpReserved + require)
 
     publicKeys.forEach((pk) => {
       script.addData(
-        ecdsa ? pk : new PublicKey(pk).toXOnlyPublicKey().toString()
-      );
-    });
+        ecdsa ? pk : new PublicKey(pk).toXOnlyPublicKey().toString(),
+      )
+    })
 
     return script
       .addOp(Opcodes.OpReserved + publicKeys.length)
@@ -116,8 +116,8 @@ export const useScriptBuilder = () => {
       .addData(Buffer.from(KASPLEX))
       .addI64(0n)
       .addData(Buffer.from(JSON.stringify(data, null, 0)))
-      .addOp(Opcodes.OpEndIf);
-  };
+      .addOp(Opcodes.OpEndIf)
+  }
 
   /**
    * Creates a multi-signature address.
@@ -131,15 +131,15 @@ export const useScriptBuilder = () => {
     require: number,
     publicKeys: string[],
     networkType: NetworkType,
-    ecdsa?: boolean
+    ecdsa?: boolean,
   ) => {
     return createMultisigAddress(
       require,
       publicKeys.map((pk) => new PublicKey(pk)),
       networkType,
-      ecdsa
-    );
-  };
+      ecdsa,
+    )
+  }
 
   /**
    * Generates a redeem multi-signature address.
@@ -152,22 +152,22 @@ export const useScriptBuilder = () => {
   const createRedeemScript = (
     require: number,
     publicKeys: string[],
-    ecdsa?: boolean
+    ecdsa?: boolean,
   ) => {
-    const script = new ScriptBuilder().addOp(Opcodes.OpReserved + require);
+    const script = new ScriptBuilder().addOp(Opcodes.OpReserved + require)
 
     publicKeys.forEach((pk) => {
       script.addData(
-        ecdsa ? pk : new PublicKey(pk).toXOnlyPublicKey().toString()
-      );
-    });
+        ecdsa ? pk : new PublicKey(pk).toXOnlyPublicKey().toString(),
+      )
+    })
 
     script
       .addOp(Opcodes.OpReserved + publicKeys.length)
-      .addOp(ecdsa ? Opcodes.OpCheckMultiSigECDSA : Opcodes.OpCheckMultiSig);
+      .addOp(ecdsa ? Opcodes.OpCheckMultiSigECDSA : Opcodes.OpCheckMultiSig)
 
-    return new ScriptBuilder().addData(script.toString());
-  };
+    return new ScriptBuilder().addData(script.toString())
+  }
 
   /**
    * Redeems a multi-signature address by constructing the appropriate script.
@@ -181,22 +181,22 @@ export const useScriptBuilder = () => {
   const redeemMultiSignAddress = (
     require: number,
     publicKeys: string[],
-    ecdsa?: boolean
+    ecdsa?: boolean,
   ) => {
-    const script = new ScriptBuilder().addOp(Opcodes.OpReserved + require);
+    const script = new ScriptBuilder().addOp(Opcodes.OpReserved + require)
 
     publicKeys.forEach((pk) => {
       script.addData(
-        ecdsa ? pk : new PublicKey(pk).toXOnlyPublicKey().toString()
-      );
-    });
+        ecdsa ? pk : new PublicKey(pk).toXOnlyPublicKey().toString(),
+      )
+    })
 
     script
       .addOp(Opcodes.OpReserved + publicKeys.length)
-      .addOp(ecdsa ? Opcodes.OpCheckMultiSigECDSA : Opcodes.OpCheckMultiSig);
+      .addOp(ecdsa ? Opcodes.OpCheckMultiSigECDSA : Opcodes.OpCheckMultiSig)
 
-    return new ScriptBuilder().addData(script.toString());
-  };
+    return new ScriptBuilder().addData(script.toString())
+  }
 
   return {
     createKrc20Script,
@@ -206,5 +206,5 @@ export const useScriptBuilder = () => {
     createMultisignatureAddress,
     createRedeemScript,
     redeemMultiSignAddress,
-  };
-};
+  }
+}

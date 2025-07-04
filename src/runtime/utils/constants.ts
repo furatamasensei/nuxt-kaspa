@@ -1,18 +1,18 @@
-export const BASE_URL_TEST = `https://tn10api.kasplex.org`;
-export const BASE_URL_MAIN = `https://api.kasplex.org`;
+export const BASE_URL_TEST = 'https://tn10api.kasplex.org'
+export const BASE_URL_MAIN = 'https://api.kasplex.org'
 
 export const BASE_URL_KASPA = {
-  MAIN: `https://api.kaspa.org`,
-  TEST: `https://api-tn10.kaspa.org`,
-};
+  MAIN: 'https://api.kaspa.org',
+  TEST: 'https://api-tn10.kaspa.org',
+}
 
-export const U64_MAX_VALUE = 18446744073709551615n;
+export const U64_MAX_VALUE = 18446744073709551615n
 
-export const BASE_KAS_TO_P2SH_ADDRESS = 130000000n;
+export const BASE_KAS_TO_P2SH_ADDRESS = 130000000n
 
-export const BASE_P2SH_TO_KASPA_ADDRESS = 30000000n;
+export const BASE_P2SH_TO_KASPA_ADDRESS = 30000000n
 
-export const DEFAULT_FEE = 100000000n;
+export const DEFAULT_FEE = 100000000n
 
 export const MIN_PUSHDATA = {
   MIN_PUSHDATA1: 77,
@@ -21,6 +21,6 @@ export const MIN_PUSHDATA = {
   MAX_PUSHDATA1: 255,
   MAX_PUSHDATA2: 65535,
   MAX_PUSHDATA4: 4294967295,
-};
+}
 
-export const KASPLEX = "kasplex";
+export const KASPLEX = 'kasplex'

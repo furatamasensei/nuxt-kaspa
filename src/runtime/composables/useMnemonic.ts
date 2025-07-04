@@ -1,4 +1,4 @@
-import { Mnemonic } from "../kaspa/kaspa";
+import { Mnemonic } from '../kaspa/kaspa'
 
 export const useMnemonic = () => {
   /**
@@ -9,10 +9,10 @@ export const useMnemonic = () => {
    */
   const random = (length: number): string => {
     if (length !== 12 && length !== 24) {
-      throw new Error("Length must be 12 or 24");
+      throw new Error('Length must be 12 or 24')
     }
-    return Mnemonic.random(length).phrase;
-  };
+    return Mnemonic.random(length).phrase
+  }
 
   /**
    * Validates whether the given mnemonic phrase is valid.
@@ -20,8 +20,8 @@ export const useMnemonic = () => {
    * @returns {boolean} - Returns true if the mnemonic is valid, otherwise false.
    */
   const validate = (mnemonic: string): boolean => {
-    return Mnemonic.validate(mnemonic);
-  };
+    return Mnemonic.validate(mnemonic)
+  }
 
   /**
    * Converts a mnemonic phrase into a seed.
@@ -29,13 +29,13 @@ export const useMnemonic = () => {
    * @param {string} [password=""] - An optional password used for seed generation.
    * @returns {string} - The generated seed from the mnemonic.
    */
-  const toSeed = (mnemonic: string, password: string = ""): string => {
-    return new Mnemonic(mnemonic).toSeed(password);
-  };
+  const toSeed = (mnemonic: string, password: string = ''): string => {
+    return new Mnemonic(mnemonic).toSeed(password)
+  }
 
   return {
     random,
     validate,
     toSeed,
-  };
-};
+  }
+}

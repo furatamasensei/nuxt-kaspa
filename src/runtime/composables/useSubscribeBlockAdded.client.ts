@@ -1,18 +1,18 @@
-import { onUnmounted } from "vue";
-import type { IBlockAdded } from "../kaspa/kaspa";
-import { useKaspaRpc } from "./useKaspaRpc.client";
+import { onUnmounted } from 'vue'
+import type { IBlockAdded } from '../kaspa/kaspa'
+import { useKaspaRpc } from './useKaspaRpc.client'
 
 export const useSubscribeBlockAdded = (
-  callback: (event: IBlockAdded) => void
+  callback: (event: IBlockAdded) => void,
 ) => {
-  const rpc = useKaspaRpc();
+  const rpc = useKaspaRpc()
 
   rpc.subscribeBlockAdded().then(() => {
-    rpc.addEventListener("block-added", callback);
-  });
+    rpc.addEventListener('block-added', callback)
+  })
 
   onUnmounted(() => {
-    rpc.removeEventListener("block-added", callback);
-    rpc.unsubscribeBlockAdded();
-  });
-};
+    rpc.removeEventListener('block-added', callback)
+    rpc.unsubscribeBlockAdded()
+  })
+}

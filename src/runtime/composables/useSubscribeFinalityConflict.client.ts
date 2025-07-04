@@ -1,17 +1,17 @@
-import { onUnmounted, useKaspaRpc } from "#imports";
-import type { IFinalityConflict } from "../kaspa/kaspa";
+import { onUnmounted, useKaspaRpc } from '#imports'
+import type { IFinalityConflict } from '../kaspa/kaspa'
 
 export const useSubscribeFinalityConflict = (
-  callback: (event: IFinalityConflict) => void
+  callback: (event: IFinalityConflict) => void,
 ) => {
-  const rpc = useKaspaRpc();
+  const rpc = useKaspaRpc()
 
   rpc.subscribeFinalityConflict().then(() => {
-    rpc.addEventListener("finality-conflict", callback);
-  });
+    rpc.addEventListener('finality-conflict', callback)
+  })
 
   onUnmounted(() => {
-    rpc.removeEventListener("finality-conflict", callback);
-    rpc.unsubscribeFinalityConflict();
-  });
-};
+    rpc.removeEventListener('finality-conflict', callback)
+    rpc.unsubscribeFinalityConflict()
+  })
+}

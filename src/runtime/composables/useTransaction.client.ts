@@ -1,4 +1,4 @@
-import { useKaspaRpc, useRuntimeConfig } from "#imports";
+import { useKaspaRpc, useRuntimeConfig } from '#imports'
 import {
   createInputSignature,
   createTransactions as createKaspaTransactions,
@@ -14,117 +14,111 @@ import {
   type IGeneratorSettingsObject,
   type IPaymentOutput,
   type IUtxoEntry,
-} from "../kaspa/kaspa";
+} from '../kaspa/kaspa'
 
 export const useTransaction = () => {
-  const config = useRuntimeConfig();
+  const config = useRuntimeConfig()
 
   const generateTransaction = (options: IGeneratorSettingsObject) => {
     return new Generator({
       ...options,
       networkId: config.public.kaspa.network,
-    });
-  };
+    })
+  }
 
   const generateSignAndSubmitTransaction = async (
     options: IGeneratorSettingsObject,
     privateKey: PrivateKey | HexString | Uint8Array | string,
-    checkFullySigned: boolean = true
+    checkFullySigned: boolean = true,
   ) => {
-    const generator = generateTransaction(options);
+    const generator = generateTransaction(options)
 
-    const pendingTx: PendingTransaction | null = await generator.next();
+    const pendingTx: PendingTransaction | null = await generator.next()
 
     if (!pendingTx) {
-      throw new Error("Failed to generate transaction");
+      throw new Error('Failed to generate transaction')
     }
 
     const privateKeys = pendingTx.addresses().map(() => {
-      return privateKey;
-    });
+      return privateKey
+    })
 
     return await signAndSubmitPendingTransaction(
       pendingTx,
       privateKeys,
-      checkFullySigned
-    );
-  };
+      checkFullySigned,
+    )
+  }
 
   const createTransactions = (options: IGeneratorSettingsObject) => {
     return createKaspaTransactions({
       ...options,
       networkId: config.public.kaspa.network,
-    });
-  };
+    })
+  }
 
   const createSignAndSubmitTransactions = async (
     options: IGeneratorSettingsObject,
-    privateKey: PrivateKey | HexString | Uint8Array | string
+    privateKey: PrivateKey | HexString | Uint8Array | string,
   ) => {
-    const { transactions, summary } = await createKaspaTransactions(options);
+    const { transactions, summary } = await createKaspaTransactions(options)
 
     if (transactions.length > 0) {
-      await signAndSubmitPendingTransaction(transactions[0], [privateKey]);
+      await signAndSubmitPendingTransaction(transactions[0], [privateKey])
     }
 
     // Handle the remaining transactions, waiting for the `time-to-submit` event
     for (let i = 1; i < transactions.length; i++) {
-      await signAndSubmitPendingTransaction(transactions[i], [privateKey]);
+      await signAndSubmitPendingTransaction(transactions[i], [privateKey])
     }
 
-    return summary.finalTransactionId;
-  };
+    return summary.finalTransactionId
+  }
 
   const signAndSubmitPendingTransaction = async (
     transaction: PendingTransaction,
     privateKeys: (PrivateKey | HexString | Uint8Array | string)[],
-    checkFullySigned?: boolean
+    checkFullySigned?: boolean,
   ) => {
-    const rpc = useKaspaRpc();
+    const rpc = useKaspaRpc()
 
-    transaction.sign(privateKeys, checkFullySigned);
+    transaction.sign(privateKeys, checkFullySigned)
 
-    return await transaction.submit(rpc);
-  };
+    return await transaction.submit(rpc)
+  }
 
   const createTransactionWithEntries = (
     entries: IUtxoEntry[],
     outputs: IPaymentOutput[],
     priorityFee: bigint,
     payload?: HexString | Uint8Array,
-    sigOpCount?: number
+    sigOpCount?: number,
   ) => {
-    return createTransaction(
-      entries,
-      outputs,
-      priorityFee,
-      payload,
-      sigOpCount
-    );
-  };
+    return createTransaction(entries, outputs, priorityFee, payload, sigOpCount)
+  }
 
   const sign = (
     transaction: Transaction,
     privateKey: PrivateKey,
     script?: ScriptBuilder,
-    sigHashType?: SighashType
+    sigHashType?: SighashType,
   ) => {
     if (script) {
-      const length = transaction.inputs.length;
+      const length = transaction.inputs.length
       for (let i = 0; i < length; i++) {
         const signature = createInputSignature(
           transaction,
           i,
           privateKey,
-          sigHashType
-        );
+          sigHashType,
+        )
         transaction.inputs[i].signatureScript =
-          script.encodePayToScriptHashSignatureScript(signature);
+          script.encodePayToScriptHashSignatureScript(signature)
       }
     } else {
-      return signTransaction(transaction, [privateKey], false);
+      return signTransaction(transaction, [privateKey], false)
     }
-  };
+  }
 
   return {
     generateTransaction,
@@ -134,5 +128,5 @@ export const useTransaction = () => {
     signAndSubmitPendingTransaction,
     createTransactionWithEntries,
     sign,
-  };
-};
+  }
+}
