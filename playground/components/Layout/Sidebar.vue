@@ -4,9 +4,9 @@ import type { NavigationMenuItem } from '@nuxt/ui'
 const items: NavigationMenuItem[][] = [
   [
     {
-      label: 'Event Listener',
+      label: 'Event Subscription',
       type: 'label',
-      icon: 'i-lucide-rss',
+      icon: 'i-lucide-podcast',
       active: true,
       defaultOpen: true,
       children: [
