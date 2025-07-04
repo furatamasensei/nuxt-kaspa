@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.1.1
+
+[compare changes](https://github.com/furatamasensei/nuxt-kaspa/compare/v1.1.0...v1.1.1)
+
+### 🏡 Chore
+
+- Lint ([a2fa063](https://github.com/furatamasensei/nuxt-kaspa/commit/a2fa063))
+
+### ❤️ Contributors
+
+- Donny Pratama <pratamatama1024@gmail.com>
+
 ## v1.1.0
 
 
