@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.1.2
+
+[compare changes](https://github.com/furatamasensei/nuxt-kaspa/compare/v1.1.1...v1.1.2)
+
+### 🏡 Chore
+
+- **release:** V1.1.1 ([3712183](https://github.com/furatamasensei/nuxt-kaspa/commit/3712183))
+- Remove workflow ([c5200e1](https://github.com/furatamasensei/nuxt-kaspa/commit/c5200e1))
+
+### ❤️ Contributors
+
+- Donny Pratama <pratamatama1024@gmail.com>
+
 ## v1.1.1
 
 [compare changes](https://github.com/furatamasensei/nuxt-kaspa/compare/v1.1.0...v1.1.1)
