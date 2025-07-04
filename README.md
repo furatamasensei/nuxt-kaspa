@@ -1,3 +1,5 @@
+[![@nuxtjs/kaspa](./cover.jpg)](https://kaspa.nuxtjs.org)
+
 # Nuxt Kaspa
 
 [![npm version][npm-version-src]][npm-version-href]
