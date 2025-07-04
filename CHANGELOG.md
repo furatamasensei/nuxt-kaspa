@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v1.3.0
+
+[compare changes](https://github.com/furatamasensei/nuxt-kaspa/compare/v1.2.1...v1.3.0)
+
+### 🚀 Enhancements
+
+- **playground:** Even subscription demo ([9226470](https://github.com/furatamasensei/nuxt-kaspa/commit/9226470))
+
+### 💅 Refactors
+
+- Add support for manual control, expose types ([2a3e2fc](https://github.com/furatamasensei/nuxt-kaspa/commit/2a3e2fc))
+
+### 🏡 Chore
+
+- **release:** V1.2.1 ([74268db](https://github.com/furatamasensei/nuxt-kaspa/commit/74268db))
+
+### ❤️ Contributors
+
+- Donny Pratama <pratamatama1024@gmail.com>
+
 ## v1.2.1
 
 [compare changes](https://github.com/furatamasensei/nuxt-kaspa/compare/v1.2.0...v1.2.1)
