@@ -63,6 +63,34 @@ const items: NavigationMenuItem[][] = [
           label: 'useWallet',
           to: '/common/wallet',
         },
+        {
+          label: 'useScriptBuilder',
+          to: '/common/script-builder',
+        },
+        {
+          label: 'useKaspaApi',
+          to: '/common/kaspa-api',
+        },
+        {
+          label: 'useKasplexApi',
+          to: '/common/kasplex-api',
+        },
+        {
+          label: 'useKaspaRpc',
+          to: '/common/kaspa-rpc',
+        },
+        {
+          label: 'useTransaction',
+          to: '/common/transaction',
+        },
+        {
+          label: 'useKrc20Transaction',
+          to: '/common/krc-20-transaction',
+        },
+        {
+          label: 'useValidator',
+          to: '/common/validator',
+        },
       ],
     },
   ],
