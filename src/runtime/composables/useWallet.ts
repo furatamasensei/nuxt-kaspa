@@ -78,7 +78,7 @@ export const useWallet = () => {
    * @param message - The message to be signed.
    * @returns The signature as a hexadecimal string.
    */
-  const signMessage = (message: string, privateKey: PrivateKey): HexString => {
+  const signMessage = (message: string, privateKey: string): HexString => {
     return wasmSignMessage({ message, privateKey })
   }
 
@@ -93,12 +93,12 @@ export const useWallet = () => {
   const verifyMessage = (
     message: string,
     signature: string,
-    privateKey: PrivateKey,
+    publicKey: string,
   ): boolean => {
     return wasmVerifyMessage({
       message,
       signature,
-      publicKey: privateKey.toPublicKey(),
+      publicKey,
     })
   }
 
