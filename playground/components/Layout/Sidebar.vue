@@ -59,6 +59,10 @@ const items: NavigationMenuItem[][] = [
           label: 'useMnemonic',
           to: '/common/mnemonic',
         },
+        {
+          label: 'useWallet',
+          to: '/common/wallet',
+        },
       ],
     },
   ],
