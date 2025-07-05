@@ -1,6 +1,31 @@
 # Changelog
 
 
+## v1.4.0
+
+[compare changes](https://github.com/furatamasensei/nuxt-kaspa/compare/v1.3.0...v1.4.0)
+
+### 🚀 Enhancements
+
+- Better playground layout ([74d1c64](https://github.com/furatamasensei/nuxt-kaspa/commit/74d1c64))
+- **playground:** Code sample ([eddfd76](https://github.com/furatamasensei/nuxt-kaspa/commit/eddfd76))
+- **playground:** Decoration ([8009d07](https://github.com/furatamasensei/nuxt-kaspa/commit/8009d07))
+- **playground:** Add empty message to terminal ([5c7133c](https://github.com/furatamasensei/nuxt-kaspa/commit/5c7133c))
+- **playground:** Mnemonic demo ([9fef82b](https://github.com/furatamasensei/nuxt-kaspa/commit/9fef82b))
+- **playground:** Partial showcase ([4b1ac91](https://github.com/furatamasensei/nuxt-kaspa/commit/4b1ac91))
+
+### 💅 Refactors
+
+- New label & icon ([344a41c](https://github.com/furatamasensei/nuxt-kaspa/commit/344a41c))
+
+### 🏡 Chore
+
+- **release:** V1.3.0 ([7038ce4](https://github.com/furatamasensei/nuxt-kaspa/commit/7038ce4))
+
+### ❤️ Contributors
+
+- Donny Pratama <pratamatama1024@gmail.com>
+
 ## v1.3.0
 
 [compare changes](https://github.com/furatamasensei/nuxt-kaspa/compare/v1.2.1...v1.3.0)
