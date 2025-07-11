@@ -1,6 +1,7 @@
 import type { OP } from './enum'
 
 export * from '../kaspa/kaspa'
+export * from './kaspaApiTypes'
 export * from './kasplexApiTypes'
 
 export interface Params {
