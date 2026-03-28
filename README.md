@@ -1,3 +1,6 @@
+> **Deprecated**!
+> This repository has been marked deprecated in favor of [VKAS](https://vue-kaspa.vercel.app)
+
 [![@nuxtjs/kaspa](./cover.jpg)](https://kaspa.nuxtjs.org)
 
 # Nuxt Kaspa
